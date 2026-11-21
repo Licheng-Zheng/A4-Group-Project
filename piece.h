@@ -27,6 +27,6 @@ class Piece {
     // pure virtual function (cannot be called here, requires the board so that it can check things for like if the king is in check)
 
     virtual char getSymbol() const = 0; 
-}
+};
 
 #endif 
