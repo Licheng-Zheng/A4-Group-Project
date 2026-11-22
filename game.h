@@ -1,8 +1,8 @@
+#ifndef GAME_H
+#define GAME_H
 #include <iostream>
 #include <string>
 #include "move.h"
-#ifndef g
-#define g
 
 const int PLAYING = 0;
 const int W_Win = 1;

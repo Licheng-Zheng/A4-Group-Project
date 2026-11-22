@@ -5,7 +5,7 @@ Game::Game(const std::string &white, const std::string &black, std:: ostream &ou
 }
 
 bool Game::move(const Move &m) {
-    out << (colour ? "white" : "black") << " moves " << m.from.toString() << " -> " << m.to.toString(); << std::endl;
+    out << (colour ? "white" : "black") << " moves " << m.prev.toString() << " -> " << m.next.toString(); << std::endl;
     colour = colour ? 1 : 0;
     return true;
 }

@@ -1,6 +1,6 @@
+#ifndef POSITION_H
+#define POSITION_H
 #include <string>
-#ifndef p
-#define p
 
 struct Position {
     int row;

@@ -1,9 +1,9 @@
+#ifndef COMMANDINTERPRETER_H
+#define COMMANDINTERPRETER_H
 #include <ostream>
 #include <sstream>
 #include <string>
 #include "game.h"
-#ifndef c
-#define c
 
 class Commandinterpreter {
     Game *game;
