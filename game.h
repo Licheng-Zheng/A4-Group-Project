@@ -22,7 +22,7 @@ class Game {
         bool move(const Move&m);
         void endGame();
         int getState() const;
-        bool getTurn() const;
+        int getTurn() const;
 };
 
 #endif

@@ -1,14 +1,14 @@
 #ifndef COMMANDINTERPRETER_H
 #define COMMANDINTERPRETER_H
-#include <ostream>
+#include <iostream>
 #include <sstream>
 #include <string>
 #include "game.h"
 
 class Commandinterpreter {
     Game *game;
-    whiteScore double;
-    blackScore double;
+    double whiteScore;
+    double blackScore;
     //Starts up a new game
     void beginGame(std::istream &args, std::ostream &out);
 
@@ -26,7 +26,7 @@ class Commandinterpreter {
         Commandinterpreter();
         ~Commandinterpreter();
         //Start the actual chess session
-        void start()
+        void start(std::istream &in, std::ostream &out);
         void printScore(std::ostream &out) const;
 };
 #endif

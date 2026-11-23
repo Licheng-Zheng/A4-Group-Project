@@ -15,10 +15,10 @@ void Commandinterpreter::start(std::istream &in, std::ostream &out) {
 
         //checks the command and runs the approiate functions
         if (command == "game") {
-            startGame(args, out);
+            beginGame(args, out);
         } else if (command == "move") {
-            move(args, out);
-        } else if (commdnad == "resign") {
+            makeMove(args, out);
+        } else if (command == "resign") {
             if (!game) { //checks if theres a game running using its pointer
                 out << "No game is running" << std::endl;
             } else {
@@ -29,7 +29,7 @@ void Commandinterpreter::start(std::istream &in, std::ostream &out) {
             if (game) out << "Can't use setup while a game is running" << std::endl;
             else setup(in, out);
         } else {
-            out << "Invalid command: " << commmand << std::endl;
+            out << "Invalid command: " << command << std::endl;
         }
     }
     printScore(out);
@@ -48,7 +48,7 @@ void Commandinterpreter::beginGame(std::istream &args, std::ostream &out) {
     game = new Game{white, black, out};
 }
 
-void Commandinterpreter::move(std::istream &args, std::ostream &out) {
+void Commandinterpreter::makeMove(std::istream &args, std::ostream &out) {
     if (!game) {
         out << "No game is running" << std::endl;
         return;
@@ -65,13 +65,14 @@ void Commandinterpreter::move(std::istream &args, std::ostream &out) {
     m.prev = Position::convert(prev);
     m.next = Position::convert(next);
     if (!m.prev.isValid() || !m.next.isValid()) {
-        out << "Invalid position"
+        out << "Invalid position" << std::endl;
         return;
     }
 
     //check for promotion
     std::string promo;
     if (args >> promo) {
+        char p = promo[0];
         if (promo.length() != 1 || !(p == 'Q' || p == 'R' || p == 'B' || p == 'N' || p == 'q' || p == 'r' || p == 'b' || p == 'n')) {
             out << "Not a valid promotion type" << std::endl;
             return;
@@ -94,16 +95,15 @@ void Commandinterpreter::setup(std::istream &in, std::ostream &out) {
             std::string piece, square;
             args >> piece >> square;
             Position p = Position::convert(square);
-            if (piece.length() != 1 || !p.isValid()) {
-                if (promo.length() != 1 || !(p == 'Q' || p == 'R' || p == 'B' || p == 'N' || p == 'q' || p == 'r' || p == 'b' || p == 'n')) {
-                    out << "Invalid Input - Please use: + (piece) (square)" << std::endl;
-                    continue;
-                }
-                out << "placed " << piece << " on " << p.toString() << std::endl;
+            char c = (piece.length() == 1) ? piece[0] : ' ';
+            if (!(c == 'Q' || c == 'R' || c == 'B' || c == 'N' || c == 'q' || c == 'r' || c == 'b' || c == 'n') || !p.isValid()) {
+                out << "Invalid Input - Please use: + (piece) (square)" << std::endl;
+                continue;
             }
+            out << "placed " << piece << " on " << p.toString() << std::endl;
         } else if (command == "-") {
             std::string square;
-            args >> sqaure;
+            args >> square;
             Position p = Position::convert(square);
             if (!p.isValid()) {
                 out << "Invalid input - Please use: - (square)" << std::endl;
@@ -118,22 +118,23 @@ void Commandinterpreter::setup(std::istream &in, std::ostream &out) {
                 continue;
             }
             out << colour << "moves first" << std::endl;
-        }
-    } else if (command == "done") {
+        } else if (command == "done") {
         out << "Ending setup mode" << std::endl;
         return;
-    } else {
+        } else {
         out << "Invalid setup command: " << command << std::endl;
+        }
     }
 }
+
 
 void Commandinterpreter::checkEnd() {
     if (!game) return;
     int state = game->getState();
-    if (r == PLAYING) return;
-    if (r == W_Win) whiteScore += 1;
-    else if (r == B_Win) blackScore += 1;
-    else if (r == DRAW) {
+    if (state == PLAYING) return;
+    if (state == W_Win) whiteScore += 1;
+    else if (state == B_Win) blackScore += 1;
+    else if (state == DRAW) {
         whiteScore += 0.5;
         blackScore += 0.5;
     }
@@ -141,9 +142,9 @@ void Commandinterpreter::checkEnd() {
     game = nullptr;
 }
 
-bool CommandInterpreter::isValid(const std::string &p) const { return p == "human" || p == "computer1" || p == "computer2" || p == "computer3" || p == "computer4"; }
+bool Commandinterpreter::isValid(const std::string &p) const { return p == "human" || p == "computer1" || p == "computer2" || p == "computer3" || p == "computer4"; }
 
-void CommandInterpreter::printScore(std::ostream &out) const {
+void Commandinterpreter::printScore(std::ostream &out) const {
     out << "Final Score:" << std::endl;
     out << "White: " << whiteScore << std::endl;
     out << "Black: " << blackScore << std::endl;
