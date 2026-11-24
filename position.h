@@ -6,7 +6,7 @@ struct Position {
     int row;
     int col;
 
-    explicit Position(int col = -1, int row = -1);
+    explicit Position(int row = -1, int col = -1);
 
     //converts moves in letters (e2) into a position
     static Position convert(const std::string &s);

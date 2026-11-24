@@ -41,25 +41,25 @@ void Board::initDefaultBoard() {
     }
     //places all the pieces
     this->placePiece(make_unique<Rook>(0, Position{0, 0}), Position{0,0});
-    this->placePiece(make_unique<Knight>(0, Position{1, 0}), Position{1, 0});
-    this->placePiece(make_unique<Bishop>(0, Position{2, 0}), Position{2, 0});
-    this->placePiece(make_unique<Queen>(0, Position{3, 0}), Position{3, 0});
-    this->placePiece(make_unique<King>(0, Position{4, 0}), Position{4, 0});
-    this->placePiece(make_unique<Bishop>(0, Position{5, 0}), Position{5, 0});
-    this->placePiece(make_unique<Knight>(0, Position{6, 0}), Position{6, 0});
-    this->placePiece(make_unique<Rook>(0, Position{7, 7}), Position{7,7});
-    this->placePiece(make_unique<Rook>(1, Position{0, 7}), Position{0,7});
-    this->placePiece(make_unique<Knight>(1, Position{1, 7}), Position{1, 7});
-    this->placePiece(make_unique<Bishop>(1, Position{2, 7}), Position{2, 7});
-    this->placePiece(make_unique<Queen>(1, Position{3, 7}), Position{3, 7});
-    this->placePiece(make_unique<King>(1, Position{4, 7}), Position{4, 7});
-    this->placePiece(make_unique<Bishop>(1, Position{5, 7}), Position{5, 7});
-    this->placePiece(make_unique<Knight>(1, Position{6, 7}), Position{6, 7});
+    this->placePiece(make_unique<Knight>(0, Position{0, 1}), Position{0, 1});
+    this->placePiece(make_unique<Bishop>(0, Position{0, 2}), Position{0, 2});
+    this->placePiece(make_unique<Queen>(0, Position{0, 3}), Position{0, 3});
+    this->placePiece(make_unique<King>(0, Position{0, 4}), Position{0, 4});
+    this->placePiece(make_unique<Bishop>(0, Position{0, 5}), Position{0, 5});
+    this->placePiece(make_unique<Knight>(0, Position{0, 6}), Position{0, 6});
+    this->placePiece(make_unique<Rook>(0, Position{0, 7}), Position{0,7});
+    this->placePiece(make_unique<Rook>(1, Position{7, 0}), Position{7,0});
+    this->placePiece(make_unique<Knight>(1, Position{7, 1}), Position{7, 1});
+    this->placePiece(make_unique<Bishop>(1, Position{7, 2}), Position{7, 2});
+    this->placePiece(make_unique<Queen>(1, Position{7, 3}), Position{7, 3});
+    this->placePiece(make_unique<King>(1, Position{7, 4}), Position{7, 4});
+    this->placePiece(make_unique<Bishop>(1, Position{7, 5}), Position{7, 5});
+    this->placePiece(make_unique<Knight>(1, Position{7, 6}), Position{7, 6});
     this->placePiece(make_unique<Rook>(1, Position{7, 7}), Position{7,7});
     //places pawns
     for (int c = 0; c < 8; ++c) {
-        placePiece(make_unique<Pawn>(0, Position{c,1}), Position{c, 1});
-        placePiece(make_unique<Pawn>(1, Position{c, 6}), Position{c, 6});
+        placePiece(make_unique<Pawn>(0, Position{1,c}), Position{1, c});
+        placePiece(make_unique<Pawn>(1, Position{6, c}), Position{6, c});
     }
 }
 
@@ -90,10 +90,10 @@ void Board::print(ostream& out) const {
         }
         out << endl;
     }
-    out << endl << " abcdefgh" << endl; //letter row at the bottom
+    out << endl << "  abcdefgh" << endl; //letter row at the bottom
 }
 
-osteram& operator<<(ostream &out, const Board &b) {
+ostream& operator<<(ostream &out, const Board &b) {
     b.print(out);
     return out;
 }

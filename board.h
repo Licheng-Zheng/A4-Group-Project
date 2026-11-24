@@ -35,14 +35,14 @@ public:
     bool isValidSetup() const;
 
     // check if the move can be performed (we need to figure out the move first) 
-    bool movePiece(Move m, Colour turn);
-    bool isLegalMove(Move m, Colour player) const;
+    bool movePiece(Move m, int turn);
+    bool isLegalMove(Move m, int player) const;
 
     // Figure out a way to have a list of all the possible moves. 
 
-    bool isInCheck(Colour player) const;
-    bool isCheckmate(Colour player) const;
-    bool isStalemate(Colour player) const;
+    bool isInCheck(int player) const;
+    bool isCheckmate(int player) const;
+    bool isStalemate(int player) const;
     bool isSquareAttacked(Position pos, Colour byPlayer) const;
 
     // helpoer functions

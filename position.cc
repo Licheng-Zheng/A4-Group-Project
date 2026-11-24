@@ -1,6 +1,6 @@
 #include "position.h"
 
-Position::Position(int col, int row) : col {col}, row{row} {}
+Position::Position(int row, int col) : row{row}, col{col} {}
 
 Position Position::convert(const std::string &s) {
     Position p;
