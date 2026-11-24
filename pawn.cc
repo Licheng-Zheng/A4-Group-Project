@@ -117,6 +117,7 @@ vector<Move> Pawn::(const Board &board) const {
     return Moves; 
 
     // FIGURE OUT HOW WE'RE GONNA GET PROMOPIECES TO WORK 
+    // Need to figure out how we are representing promotions in the move class. 
     char promoPieces[4] = {'Q', 'R', 'B', 'N'};
 
 } 
