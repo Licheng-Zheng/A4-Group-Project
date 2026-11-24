@@ -4,7 +4,7 @@
 using namespace std; 
 
 
-Knight::Knight(int colour, Position pos) {  // sets its own position. Constructs it so that it is at this position. 
+Knight::Knight(int colour, Position pos) : Piece(colour, pos) {  // sets its own position. Constructs it so that it is at this position. 
     // created elsewhere, just need to set the information now 
 
     this -> colour = colour; 
@@ -39,7 +39,7 @@ vector<Move> Knight::getValidMoves(const Board &board) const {
         // outside
         
         if (!(new_r>=0 && new_r <8 && new_c>=0 && new_c <8)) {
-            break;
+            continue; // goes off the map, so move onto the next possible position 
         }
 
         Position new_pos{new_r, new_c}; 
@@ -57,22 +57,22 @@ vector<Move> Knight::getValidMoves(const Board &board) const {
         temporaryBoard.removePiece(start); 
 
         // add in our piece into the new position (in case the new position also blocks a check at the original piece blocks)
-        temporaryBoard.placePiece(this, target);
+        temporaryBoard.placePiece(make_unique<Knight>(*this), target);
 
         // THE IS IN CHECK CANNOT CALL THE BISHOP VALID MOVES OR ELSE THERE WILL BE A LOOP
         if (!temporaryBoard.isInCheck(this -> getColour())) {
             // if hte move doesn't put us into check then it is a valid move
             moves.push_back(possibleMove); // the move works
         }
-
-        return moves;
     }
+
+    return moves; 
 } 
 
 
 char Knight::getSymbol() const {
     if (colour == 1) {
-        return 'k"' 
+        return 'n' 
     }
-    return 'K"' 
+    return 'N' 
 }
