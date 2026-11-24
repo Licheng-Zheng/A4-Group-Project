@@ -1,10 +1,31 @@
 #include <ostream>
 #include <sstream>
 #include "commandinterpreter.h"
+#include <memory>
+#include "king.h"
+#include "queen.h"
+#include "rook.h"
+#include "bishop.h"
+#include "knight.h"
+#include "pawn.h"
 
-Commandinterpreter::Commandinterpreter() : game{nullptr}, whiteScore{0}, blackScore{0} {}
+Commandinterpreter::Commandinterpreter() : game{nullptr}, whiteScore{0}, blackScore{0}, startTurn(0) { startBoard.initDefaultBoard(); }
 
 Commandinterpreter::~Commandinterpreter() {delete game;}
+
+//used in setup to create pieces
+std::unique_ptr<Piece> createPiece(char c, Position p) {
+    int colour = (c >= 'a' && c <= 'z') ? 1:0;
+    //switches black to uppercase otherwise its already uppercased
+    char uppercase = (colour == 1) ? c - 'a' + 'A' : c;
+    if (uppercase == 'K') return std::make_unique<King>(colour, p);
+    if (uppercase == 'Q') return std::make_unique<Queen>(colour, p);
+    if (uppercase == 'R') return std::make_unique<Rook>(colour, p);
+    if (uppercase == 'B') return std::make_unique<Bishop>(colour, p);
+    if (uppercase == 'N') return std::make_unique<Knight>(colour, p);
+    if (uppercase == 'P') return std::make_unique<Pawn>(colour, p);
+    return nullptr;
+}
 
 void Commandinterpreter::start(std::istream &in, std::ostream &out) {
     std::string s;
@@ -45,7 +66,9 @@ void Commandinterpreter::beginGame(std::istream &args, std::ostream &out) {
         out << "Please use: game (human or computer1-4) (human or computer1-4)" << std::endl;
         return;
     }
-    game = new Game{white, black, out};
+    game = new Game{white, black, startBoard, startTurn, out};
+    startBoard.initDefaultBoard();
+    startTurn = 0;
 }
 
 void Commandinterpreter::makeMove(std::istream &args, std::ostream &out) {
@@ -96,11 +119,12 @@ void Commandinterpreter::setup(std::istream &in, std::ostream &out) {
             args >> piece >> square;
             Position p = Position::convert(square);
             char c = (piece.length() == 1) ? piece[0] : ' ';
-            if (!(c == 'Q' || c == 'R' || c == 'B' || c == 'N' || c == 'q' || c == 'r' || c == 'b' || c == 'n') || !p.isValid()) {
+            if (!(c == 'Q' || c == 'R' || c == 'B' || c == 'N' || c == 'K' || c == 'P' || c == 'k' || c == 'p' || c == 'q' || c == 'r' || c == 'b' || c == 'n') || !p.isValid()) {
                 out << "Invalid Input - Please use: + (piece) (square)" << std::endl;
                 continue;
             }
-            out << "placed " << piece << " on " << p.toString() << std::endl;
+            startBoard.placePiece(createPiece(c,p), p);
+            out << startBoard;
         } else if (command == "-") {
             std::string square;
             args >> square;
@@ -109,7 +133,8 @@ void Commandinterpreter::setup(std::istream &in, std::ostream &out) {
                 out << "Invalid input - Please use: - (square)" << std::endl;
                 continue;
             }
-            out << "removed piece on " << p.toString() << std::endl;
+            startBoard.removePiece(p);
+            out << startBoard;
         } else if (command == "=") {
             std::string colour;
             args >> colour;
@@ -117,7 +142,7 @@ void Commandinterpreter::setup(std::istream &in, std::ostream &out) {
                 out << "Invalid input - Please use: = (white or black)" << std::endl;
                 continue;
             }
-            out << colour << "moves first" << std::endl;
+            startTurn = (colour == "white") ? 0 : 1;
         } else if (command == "done") {
         out << "Ending setup mode" << std::endl;
         return;

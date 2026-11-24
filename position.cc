@@ -12,7 +12,7 @@ Position Position::convert(const std::string &s) {
 
     //converts letters into index on board by comparing distance
     p.col = c - 'a';
-    p.row = r - '1';
+    p.row = '8' - r;
     return p;
 }
 
@@ -24,7 +24,7 @@ std::string Position::toString() const {
     
     //convert a position back into letters using the inverse of convert() basically
     char c = 'a' + col;
-    char r = '1' + row;
+    char r = '8' - row;
     s += c;
     s += r;
     return s;

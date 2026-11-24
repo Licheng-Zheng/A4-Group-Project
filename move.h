@@ -9,7 +9,7 @@ struct Move {
     char promotion;
     bool isCapture;
 
-    Move() : promotion{'\0'}, isCapture{false} {}
+    Move(Position prev = Position{}, Position next = Position{}, char promotion = '\0') : prev{prev}, next{next}, promotion{promotion}, isCapture{false} {}
 };
 
 #endif

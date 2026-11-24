@@ -3,7 +3,9 @@
 
 #include <iostream> 
 #include <memory> 
-
+#include "piece.h"
+#include "position.h"
+#include "move.h"
 using namespace std; 
 
 // will need to figure out the move, piece, position and other classes and what is required
@@ -43,7 +45,7 @@ public:
     bool isInCheck(int player) const;
     bool isCheckmate(int player) const;
     bool isStalemate(int player) const;
-    bool isSquareAttacked(Position pos, Colour byPlayer) const;
+    bool isSquareAttacked(Position pos, int byPlayer) const;
 
     // helpoer functions
     const Piece *getPieceAt(Position pos) const;

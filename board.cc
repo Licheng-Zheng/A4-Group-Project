@@ -40,26 +40,26 @@ void Board::initDefaultBoard() {
         }
     }
     //places all the pieces
-    this->placePiece(make_unique<Rook>(0, Position{0, 0}), Position{0,0});
-    this->placePiece(make_unique<Knight>(0, Position{0, 1}), Position{0, 1});
-    this->placePiece(make_unique<Bishop>(0, Position{0, 2}), Position{0, 2});
-    this->placePiece(make_unique<Queen>(0, Position{0, 3}), Position{0, 3});
-    this->placePiece(make_unique<King>(0, Position{0, 4}), Position{0, 4});
-    this->placePiece(make_unique<Bishop>(0, Position{0, 5}), Position{0, 5});
-    this->placePiece(make_unique<Knight>(0, Position{0, 6}), Position{0, 6});
-    this->placePiece(make_unique<Rook>(0, Position{0, 7}), Position{0,7});
-    this->placePiece(make_unique<Rook>(1, Position{7, 0}), Position{7,0});
-    this->placePiece(make_unique<Knight>(1, Position{7, 1}), Position{7, 1});
-    this->placePiece(make_unique<Bishop>(1, Position{7, 2}), Position{7, 2});
-    this->placePiece(make_unique<Queen>(1, Position{7, 3}), Position{7, 3});
-    this->placePiece(make_unique<King>(1, Position{7, 4}), Position{7, 4});
-    this->placePiece(make_unique<Bishop>(1, Position{7, 5}), Position{7, 5});
-    this->placePiece(make_unique<Knight>(1, Position{7, 6}), Position{7, 6});
-    this->placePiece(make_unique<Rook>(1, Position{7, 7}), Position{7,7});
+    placePiece(make_unique<Rook>(0, Position{7, 0}), Position{7, 0});
+    placePiece(make_unique<Knight>(0, Position{7, 1}), Position{7, 1});
+    placePiece(make_unique<Bishop>(0, Position{7, 2}), Position{7, 2});
+    placePiece(make_unique<Queen>(0, Position{7, 3}), Position{7, 3});
+    placePiece(make_unique<King>(0, Position{7, 4}), Position{7, 4});
+    placePiece(make_unique<Bishop>(0, Position{7, 5}), Position{7, 5});
+    placePiece(make_unique<Knight>(0, Position{7, 6}), Position{7, 6});
+    placePiece(make_unique<Rook>(0, Position{7, 7}), Position{7, 7});
+    placePiece(make_unique<Rook>(1, Position{0, 0}), Position{0, 0});
+    placePiece(make_unique<Knight>(1, Position{0, 1}), Position{0, 1});
+    placePiece(make_unique<Bishop>(1, Position{0, 2}), Position{0, 2});
+    placePiece(make_unique<Queen>(1, Position{0, 3}), Position{0, 3});
+    placePiece(make_unique<King>(1, Position{0, 4}), Position{0, 4});
+    placePiece(make_unique<Bishop>(1, Position{0, 5}), Position{0, 5});
+    placePiece(make_unique<Knight>(1, Position{0, 6}), Position{0, 6});
+    placePiece(make_unique<Rook>(1, Position{0, 7}), Position{0, 7});
     //places pawns
     for (int c = 0; c < 8; ++c) {
-        placePiece(make_unique<Pawn>(0, Position{1,c}), Position{1, c});
-        placePiece(make_unique<Pawn>(1, Position{6, c}), Position{6, c});
+        placePiece(make_unique<Pawn>(0, Position{6,c}), Position{6, c});
+        placePiece(make_unique<Pawn>(1, Position{1, c}), Position{1, c});
     }
 }
 
@@ -80,8 +80,8 @@ const Piece* Board::getPieceAt(Position p) const {
 }
 
 void Board::print(ostream& out) const {
-    for (int r = 7; r >=0; --r) { //row top to bottom
-        out << (r+1) << ' '; //prints num on the side
+    for (int r = 0; r < 8; --r) { //row top to bottom
+        out << (8-r) << ' '; //prints num on the side
         for (int c = 0; c < 8; ++c) {//col left to right
             const Piece *p = chessBoard[r][c].get();
             if (p) out << p->getSymbol();

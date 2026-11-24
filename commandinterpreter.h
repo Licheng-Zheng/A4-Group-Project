@@ -4,11 +4,14 @@
 #include <sstream>
 #include <string>
 #include "game.h"
+#include "board.h"
 
 class Commandinterpreter {
     Game *game;
     double whiteScore;
     double blackScore;
+    Board startBoard;
+    int startTurn;
     //Starts up a new game
     void beginGame(std::istream &args, std::ostream &out);
 
