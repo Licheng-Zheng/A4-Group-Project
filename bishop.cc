@@ -1,4 +1,4 @@
-#include "bishop.h "
+#include "bishop.h"
 #include "piece.h"
 #include <vector> 
 using namespace std; 

@@ -16,13 +16,7 @@ King::King(int colour, Position pos) {  // sets its own position. Constructs it 
 // need to create the move class as well
 vector<Move> King::getValidMoves(const Board &board) const {
     // this needs to simulate all the possible moves for the piece to do, then check if it results in a position that is not doable
-    vector<Move> Knight::getValidMoves(const Board &board) const {
-    // this needs to simulate all the possible moves for the piece to do, then check if it results in a position that is not doable
-
     // no need for a loop because it can go in a couple directions regardless 
-
-    
-        // this needs to simulate all the possible moves for the piece to do, then check if it results in a position that is not doable
 
     // this is the thing that will be returned later 
     vector<Move> moves; 
