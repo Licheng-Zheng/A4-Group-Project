@@ -3,6 +3,9 @@
 
 #include <iostream> 
 #include <memory> 
+#include "Piece.h"
+#include "Position.h"
+#include "Move.h" 
 
 using namespace std; 
 

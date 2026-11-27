@@ -67,8 +67,9 @@ vector<Move> Queen::getValidMoves(const Board &board) const {
             new_r++; 
             new_c++; 
         }
-        return moves;
     }
+    
+    return moves;
 } 
 
 
